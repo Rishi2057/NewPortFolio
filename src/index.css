@@ -1,0 +1,126 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@theme {
+  --font-poppins: "Poppins", sans-serif;
+}
+
+#pointer{
+  
+  transition: all 0.2s linear;
+}
+
+#logoheader {
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+#logoheader h1::before {
+  content: "RISHI SANKAR";
+  position: absolute;
+  color: black;
+  top: -1px;
+  left: -1px;
+  -webkit-text-stroke: 1px yellow;
+  z-index: -1;
+}
+
+#backgroundimg {
+  object-fit: cover;
+  width: 100%;
+  position: fixed;
+}
+
+#main {
+  background-color: rgba(0, 0, 0, 0.581);
+}
+
+#abouth1{
+  position: relative;
+  color: yellow;
+  -webkit-text-stroke: 1px black;
+}
+
+#abouth1::before{
+  content: "About Me";
+  position: absolute;
+  color: white;
+  top: 2px;
+
+}
+
+
+
+#parapage2{
+  line-height: 23px;
+  text-align:justify;
+}
+
+#page2 {
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+#banners {
+  margin-top: 20px;
+  /* background-color: red; */
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+#banner {
+  display: inline-block;
+  white-space: nowrap;
+  animation-name: scroller;
+  animation-duration: 20s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+#banner h1 {
+  display: inline-block;
+  font-size: 6rem;
+  font-weight: 900;
+  -webkit-text-stroke: 1px yellow;
+  color: transparent;
+  margin-left: 15px;
+  transition: color 0.4s linear;
+
+}
+
+#banner h1:hover {
+  color: yellow;
+}
+
+@keyframes scroller {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+
+#page3{
+  border: 2px solid yellow;
+}
+
+#projecth1{
+  position: relative;
+  color: yellow;
+  -webkit-text-stroke: 1px black;
+}
+
+#projecth1::before{
+  content: "Projects";
+  position: absolute;
+  color: white;
+  top: 2px;
+
+}
