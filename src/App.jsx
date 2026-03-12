@@ -18,9 +18,27 @@ function App() {
   const maindivRef = useRef(null)
 
   useEffect(() => {
-    gsap.to(imgref.current.children, {
-      y: -77,
-    })
+    const mm = gsap.matchMedia();
+
+    // small screens
+    mm.add("(max-width: 767px)", () => {
+      gsap.to(imgref.current.children, {
+        y: -127,
+      });
+    });
+
+    mm.add("(min-width:435px) and (max-width:768px)", () => {
+      gsap.to(imgref.current.children, {
+        y: -57,
+      });
+    });
+
+    // md and above
+    mm.add("(min-width: 768px)", () => {
+      gsap.to(imgref.current.children, {
+        y: -77,
+      });
+    });
     gsap.to(headingref.current, {
       y: -7,
       opacity: 1
@@ -55,19 +73,19 @@ function App() {
   useEffect(() => {
     const handleMove = (dets) => {
       if (pointer.current) {
-        pointer.current.style.left = dets.clientX - 3 + "px";
-        pointer.current.style.top = dets.clientY + "px";
+        pointer.current.style.left = dets.clientX  + "px";
+        pointer.current.style.top = dets.clientY+10 + "px";
         pointer.current.classList.remove("hidden");
       }
     };
 
     const page2Enter = () => {
       if (pointer.current) {
-        pointer.current.classList.replace("h-5", "h-52");
-        pointer.current.classList.replace("w-5", "w-52");
+        pointer.current.classList.replace("h-3", "h-52");
+        pointer.current.classList.replace("w-3", "w-52");
 
         pointer.current.classList.add(
-          "bg-yellow-200/30",   // 30% opacity
+          "bg-yellow-200/30",
           "blur-md",
           "shadow-[0_0_40px_10px_rgba(250,204,21,0.4)]"
         );
@@ -76,8 +94,8 @@ function App() {
 
     const page2Leave = () => {
       if (pointer.current) {
-        pointer.current.classList.replace("h-52", "h-5");
-        pointer.current.classList.replace("w-52", "w-5");
+        pointer.current.classList.replace("h-52", "h-3");
+        pointer.current.classList.replace("w-52", "w-3");
 
         pointer.current.classList.remove(
           "bg-yellow-200/30",
@@ -86,7 +104,7 @@ function App() {
         );
       }
     };
-    const page2El = page2.current; // store reference
+    const page2El = page2.current;
 
     document.addEventListener("mousemove", handleMove);
 
@@ -104,12 +122,13 @@ function App() {
       }
     };
 
-   
+
 
   }, []);
 
-   const page3 = useRef(null);
+  const page3 = useRef(null);
   const svgRef = useRef(null);
+
 
   useEffect(() => {
 
@@ -120,30 +139,47 @@ function App() {
 
     gsap.to(svgRef.current, {
       strokeDashoffset: 0,
+      strokeWidth: 80,
+      strokeOpacity: 0.2,
+      stroke: "#FFFF00",
       ease: "linear",
       // duration:2,
-      opacity:1,
       scrollTrigger: {
         trigger: page3.current,
         scrub: 2,
-        start: "top top",
-        end: "bottom bottom"
+        start: "top 15%",
+        end: "bottom bottom",
+        // markers: true
       }
     });
 
   }, []);
 
+  const backgroundRef = useRef(null)
+  console.log(backgroundRef);
+
+  document.addEventListener("mousemove",(e)=>{
+    // console.log(dets.clientX);
+   const xMove = (e.clientX / window.innerWidth - 0.5) * 30;
+      gsap.to(backgroundRef.current, {
+        x: `${xMove * 0.2}%`,
+        ease:"linear",
+      });
+    
+  })
+  
+
 
 
   return (
     <>
-      <Header />
-      <img id="backgroundimg" src={bg} alt="" />
+      <Header pointer={pointer} />
+      <img ref={backgroundRef} id="backgroundimg" src={bg} alt="" />
       <div ref={maindivRef} id="main" className="relative">
-        <div ref={pointer} id="pointer" className="h-5 w-5 rounded-full hidden bg-white fixed"></div>
+        <div ref={pointer} id="pointer" className="h-3 w-3 rounded-full hidden z-10 bg-white fixed"></div>
         <div id="page1" className="h-screen w-full text-white flex flex-col justify-center items-center">
 
-          <div id="logoheader" ref={imgref} className="font-extrabold  h-16 overflow-hidden text-7xl">
+          <div id="logoheader" ref={imgref} className="font-extrabold  md:h-16 overflow-hidden text-6xl md:text-7xl">
             <h1>RISHI SANKAR</h1>
             <h1>RISHI SANKAR</h1>
           </div>
@@ -156,9 +192,9 @@ function App() {
             <a className="icon" href="https://vercel.com/rishi2057s-projects" target="_blank" rel="noopener noreferrer"> <IoLogoVercel /></a>
           </div>
         </div>
-        <div ref={page2} id="page2" className="h-[70vh] w-full text-white">
-          <h1 id="abouth1" className="uppercase font-extrabold text-8xl text-center">About ME</h1>
-          <p id="parapage2" className="px-55 mt-10">
+        <div ref={page2} id="page2" className=" h-[70vh] w-full text-white">
+          <h1 id="abouth1" className="uppercase font-extrabold text-5xl md:text-8xl text-center">About ME</h1>
+          <p id="parapage2" className="px-10 md:px-55 mt-5 md:mt-10 text-justify">
             I am a passionate Frontend Developer who has completed a MEARN Stack Development course at Luminar Technolab. I specialize in building responsive, interactive, and user-friendly web interfaces using technologies such as HTML, CSS, JavaScript, and React.
 
             I focus on writing clean and maintainable code while creating modern UI designs that deliver smooth user experiences. My goal is to transform ideas into visually appealing and functional web applications.
@@ -173,16 +209,63 @@ function App() {
           </div>
 
         </div>
-        <div ref={page3} id="page3" className="min-h-fit w-full">
-          <h1 id="projecth1" className="uppercase font-extrabold text-8xl text-center">Projects</h1>
-          <div className="">
-            <svg width="full" height="1024" viewBox="0 0 1394 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path ref={svgRef} d="M52.6822 11C29.5239 62.9397 43.3622 113.446 52.6822 144C62.0022 174.554 133.124 245.38 138.682 237.5C239.804 293.524 296.283 276.356 397.182 282.5H688.682C884.182 282.5 908.182 282.5 999.182 320.5C1090.18 358.5 1126.08 420.208 1084.68 502.5C999.182 638.5 721.182 627.516 602.682 660.5C484.182 693.484 175.682 740.5 397.182 610C618.682 479.5 753.793 553.668 367.182 769C-19.429 984.332 436.682 895.731 602.682 830.5C768.682 765.269 709.18 787.129 756.182 769C803.185 750.871 954.682 748 1016.18 780C1077.68 812 1164.18 898.5 1242.68 873.5C1321.18 848.5 1364.18 1027 1364.18 1027" stroke="#FFFF00" strokeWidth="80" strokeLinecap="round" />
-            </svg>
+        <div ref={page3} id="page3" className="relative z-50 text-white min-h-screen w-full">
 
-
-
+          <div className="flex justify-center">
+            <h1 id="projecth1" className="uppercase font-extrabold text-5xl md:text-8xl text-center">
+              Projects
+            </h1>
           </div>
+          <div className="px-10 md:px-20 py-35 z-50 min-h-fit  relative">
+            {/* <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat neque quis eveniet, sunt non consequuntur praesentium optio molestiae, ab ad nostrum iure error beatae velit sint deleniti accusantium nam laboriosam, necessitatibus ut earum provident iusto! Exercitationem expedita, debitis ab ratione accusantium tempore. At consequatur laborum veritatis quae minima corporis pariatur ad quas, possimus corrupti nostrum maiores eligendi consectetur tempora hic rerum reiciendis. Nam temporibus nihil consectetur voluptatem recusandae modi, libero deleniti accusamus veniam dolore maiores atque? Cum perspiciatis ad deleniti? Deserunt, optio provident impedit accusantium, quidem ipsam possimus unde in, ab qui doloribus? Alias eos architecto possimus, reprehenderit at eum!</h1> */}
+            <div id="projects" className="mt-5 space-y-5">
+              <div className="md:flex gap-5">
+                <img className=" md:w-110" src="https://portfolio-react-sand-seven.vercel.app/assets/restuarant-BchGQAgi.png" alt="" />
+                <div>
+                  <p>Spice Veda is a simple and fully responsive static restaurant website created with pure HTML and CSS. It showcases the restaurant’s menu, special dishes, and brand story through a clean and minimal layout. Designed for smooth browsing and fast loading, it works on all screen sizes without using JavaScript or frameworks.</p>
+                   <button id="btn-click">Click Here</button>
+                </div>
+              </div>
+              <div className="md:flex gap-5">
+                <img className="md:w-110" src="https://portfolio-react2-iota.vercel.app/assets/travel-CwQM8Tr5.png" alt="" />
+                <div>
+                  <p>Luxura Travels is a fully static website built using HTML, CSS, and Tailwind CSS. It highlights luxury travel destinations, exclusive packages, and easy-to-browse sections that give users a smooth and elegant viewing experience. Designed for speed and simplicity, it works perfectly across devices without requiring any backend or database.</p>
+                   <button id="btn-click">Click Here</button>
+                </div>
+              </div>
+              <div className="md:flex gap-5">
+                <img className="md:w-110" src="https://portfolio-react2-iota.vercel.app/assets/course-D1UX8NI3.png" alt="" />
+                <div>
+                  <p>Built a frontend clone of the Udemy platform focusing on course listings, category pages, and responsive UI components. The project uses React.js for a modular, component-based architecture and Tailwind CSS for fast, modern, and consistent styling. Reusable components and optimized layouts improve performance and maintain a clean, uniform user experience across devices</p>
+                   <button id="btn-click">Click Here</button>
+                </div>
+              </div>
+              <div className="md:flex gap-5">
+                <img className="md:w-110" src="https://portfolio-react2-iota.vercel.app/assets/resume-D6w4gvsR.png" alt="" />
+                <div>
+                  <p>RBuilder is a simple and efficient CRUD application built using React. It allows users to create, read, update, and delete resume data with a clean and responsive interface. The project uses a local db.json file (via JSON Server) to simulate a backend, enabling fast development and smooth data handling without a full database setup. Reusable components and organized layouts ensure a consistent user experience.</p>
+                  <button id="btn-click">Click Here</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div className="absolute top-0 left-0 w-full h-full z-1">
+            <svg width="100%" height="100%" viewBox="0 0 1394 1024" fill="none">
+              <path
+                id="svgg"
+                ref={svgRef}
+                d="M52.6822 11C29.5239 62.9397 43.3622 113.446 52.6822 144C62.0022 174.554 133.124 245.38 138.682 237.5C239.804 293.524 296.283 276.356 397.182 282.5H688.682C884.182 282.5 908.182 282.5 999.182 320.5C1090.18 358.5 1126.08 420.208 1084.68 502.5C999.182 638.5 721.182 627.516 602.682 660.5C484.182 693.484 175.682 740.5 397.182 610C618.682 479.5 753.793 553.668 367.182 769C-19.429 984.332 436.682 895.731 602.682 830.5C768.682 765.269 709.18 787.129 756.182 769C803.185 750.871 954.682 748 1016.18 780C1077.68 812 1164.18 898.5 1242.68 873.5C1321.18 848.5 1364.18 1027 1364.18 1027"
+                stroke="#ffffff"
+                strokeOpacity="0"
+                strokeWidth="350"
+                strokeLinecap="round"
+              />
+            </svg>
+          </div>
+        </div>
+        <div className="h-screen text-white">
+          <a className="" target="_blank" href="https://wa.me/+918848062876">contact</a>
         </div>
       </div>
     </>
