@@ -51,7 +51,7 @@ function App() {
       scrollTrigger: {
         trigger: maindivRef.current,
         scrub: 1,
-        start: "22% top",
+        start: "15% top",
         end: "top -20%",
         // markers: true
       }
@@ -72,6 +72,7 @@ function App() {
 
   const pointer = useRef(null);
   const page2 = useRef(null);
+  const page1 = useRef(null);
 
   useEffect(() => {
     const handleMove = (dets) => {
@@ -162,7 +163,7 @@ function App() {
     )
   }
 
-   const page4Enter = () => {
+  const page4Enter = () => {
     pointer.current.classList.add("bg-yellow-500")
 
   }
@@ -196,16 +197,16 @@ function App() {
       duration: 3,
       width: "100px",
       borderRadius: "150%",
-       ease: "power2.inOut"
+      ease: "power2.inOut"
     })
     tl.from(contacthead.current, {
       opacity: 0,
       y: 10,
-       ease: "power2.inOut"
+      ease: "power2.inOut"
     })
     tl.from(contactIcons.current.children, {
-      y:-35,
-      opacity:0,
+      y: -35,
+      opacity: 0,
       stagger: 0.5,
       duration: 2,
       ease: "power2.inOut"
@@ -231,7 +232,7 @@ function App() {
 
     if (!form.current.from_name.value || !form.current.user_email.value || !form.current.phone.value || !form.current.message.value) {
 
-     toast.error('Fill the form completly')
+      toast.error('Fill the form completly')
     } else {
       emailjs
         .sendForm('service_7zqvkrn', 'template_j7gcidc', form.current, {
@@ -245,19 +246,43 @@ function App() {
           (error) => {
             console.log('FAILED...', error.text);
           },
-        );
+        )
     }
-  };
+  }
 
+
+    const scrollToHome = () => {
+    page1.current?.scrollIntoView({
+      behavior: "smooth"
+    })
+  }
+
+  const scrollToAbout = () => {
+    page2.current?.scrollIntoView({
+      behavior: "smooth"
+    })
+  }
+
+  const scrollToProjects = () => {
+    page3.current?.scrollIntoView({
+      behavior: "smooth"
+    })
+  }
+
+  const scrollToContact = ()=>{
+    page4.current.scrollIntoView({
+      behavior:"smooth"
+    })
+  }
 
 
   return (
     <>
-      <Header pointer={pointer} />
+      <Header pointer={pointer} scrollToHome={scrollToHome} scrollToProjects={scrollToProjects} scrollToAbout={scrollToAbout} scrollToContact={scrollToContact} />
       <img ref={backgroundRef} id="backgroundimg" src={bg} alt="" />
       <div ref={maindivRef} id="main" className="relative overflow-hidden">
         <div ref={pointer} id="pointer" className="h-3 w-3 rounded-full hidden z-10 bg-white fixed"></div>
-        <div id="page1" className="h-screen w-full text-white flex flex-col justify-center items-center">
+        <div ref={page1} id="page1" className="h-screen w-full text-white flex flex-col justify-center items-center">
 
           <div id="logoheader" ref={imgref} className="font-extrabold  md:h-16 overflow-hidden text-6xl md:text-7xl">
             <h1>RISHI SANKAR</h1>
@@ -266,14 +291,14 @@ function App() {
           <div className="mt-5">
             <h1 ref={headingref} className="text-2xl font-light opacity-0 translate-y-39 uppercase">Fronted Developer</h1>
           </div>
-          <Toaster/>
+          <Toaster />
           <div ref={container} className="flex gap-5 opacity-100 text-4xl mt-5">
             <a className="icon" href="https://www.linkedin.com/in/rishi-sankar-r-430a4a362/" target="_blank" rel="noopener noreferrer"> <FaLinkedin /></a>
             <a className="icon" href="https://github.com/Rishi2057?tab=repositories" target="_blank" rel="noopener noreferrer"> <FaGithub /></a>
             <a className="icon" href="https://vercel.com/rishi2057s-projects" target="_blank" rel="noopener noreferrer"> <IoLogoVercel /></a>
           </div>
         </div>
-        <div ref={page2} onMouseEnter={page2Enter} onMouseLeave={page2Leave} id="page2" className=" h-[70vh] w-full text-white">
+        <div ref={page2} onMouseEnter={page2Enter} onMouseLeave={page2Leave} id="page2" className=" h-[70vh] w-full text-white scroll-mt-25">
           <h1 id="abouth1" className="uppercase font-extrabold text-5xl md:text-8xl text-center">About ME</h1>
           <p id="parapage2" className="px-10 md:px-55 mt-5 md:mt-10 text-justify">
             I am a passionate Frontend Developer who has completed a MEARN Stack Development course at Luminar Technolab. I specialize in building responsive, interactive, and user-friendly web interfaces using technologies such as HTML, CSS, JavaScript, and React.
@@ -290,7 +315,7 @@ function App() {
           </div>
 
         </div>
-        <div ref={page3} id="page3" className="relative z-50 text-white min-h-screen w-full">
+        <div ref={page3} id="page3" className="relative z-50 scroll-mt-25 text-white min-h-screen w-full">
 
           <div className="flex justify-center">
             <h1 id="projecth1" className="uppercase font-extrabold text-5xl md:text-8xl text-center">
@@ -304,28 +329,28 @@ function App() {
                 <img className=" md:w-110" src="https://portfolio-react-sand-seven.vercel.app/assets/restuarant-BchGQAgi.png" alt="" />
                 <div>
                   <p>Spice Veda is a simple and fully responsive static restaurant website created with pure HTML and CSS. It showcases the restaurant’s menu, special dishes, and brand story through a clean and minimal layout. Designed for smooth browsing and fast loading, it works on all screen sizes without using JavaScript or frameworks.</p>
-                  <button id="btn-click">Click Here</button>
+                  <button id="btn-click"><a target="_blank" href="https://restuarent-five.vercel.app/">Click Here</a></button>
                 </div>
               </div>
               <div className="md:flex gap-5">
                 <img className="md:w-110" src="https://portfolio-react2-iota.vercel.app/assets/travel-CwQM8Tr5.png" alt="" />
                 <div>
                   <p>Luxura Travels is a fully static website built using HTML, CSS, and Tailwind CSS. It highlights luxury travel destinations, exclusive packages, and easy-to-browse sections that give users a smooth and elegant viewing experience. Designed for speed and simplicity, it works perfectly across devices without requiring any backend or database.</p>
-                  <button id="btn-click">Click Here</button>
+                  <button id="btn-click"><a target="_blank" href="https://luxura-travels-nine.vercel.app/">Click Here</a></button>
                 </div>
               </div>
               <div className="md:flex gap-5">
                 <img className="md:w-110" src="https://portfolio-react2-iota.vercel.app/assets/course-D1UX8NI3.png" alt="" />
                 <div>
                   <p>Built a frontend clone of the Udemy platform focusing on course listings, category pages, and responsive UI components. The project uses React.js for a modular, component-based architecture and Tailwind CSS for fast, modern, and consistent styling. Reusable components and optimized layouts improve performance and maintain a clean, uniform user experience across devices</p>
-                  <button id="btn-click">Click Here</button>
+                  <button id="btn-click"><a target="_blank" href="https://react-course-selling-app.vercel.app/">Click Here</a></button>
                 </div>
               </div>
               <div className="md:flex gap-5">
                 <img className="md:w-110" src="https://portfolio-react2-iota.vercel.app/assets/resume-D6w4gvsR.png" alt="" />
                 <div>
                   <p>RBuilder is a simple and efficient CRUD application built using React. It allows users to create, read, update, and delete resume data with a clean and responsive interface. The project uses a local db.json file (via JSON Server) to simulate a backend, enabling fast development and smooth data handling without a full database setup. Reusable components and organized layouts ensure a consistent user experience.</p>
-                  <button id="btn-click">Click Here</button>
+                  <button id="btn-click"><a target="_blank" href="https://resume-builder-fronted.vercel.app/">Click Here</a></button>
                 </div>
               </div>
 

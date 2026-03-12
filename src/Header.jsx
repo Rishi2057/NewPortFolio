@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-function Header({ pointer }) {
+function Header({ pointer,scrollToProjects,scrollToAbout,scrollToContact,scrollToHome }) {
   console.log(pointer.current);
 
   const headerRef = useRef(null)
@@ -15,8 +15,9 @@ function Header({ pointer }) {
       scrollTrigger: {
         trigger: headerRef.current,
         scrub: true,
+        // markers:true,
         start: "top top",
-        end: "top -40%"
+        end: "top -20%"
 
       }
     })
@@ -58,12 +59,12 @@ function Header({ pointer }) {
       <div id="logoheader" ref={headerRef} className="h-30 w-full z-99 text-white px-5 md:px-20 py-5 bg-transparent flex justify-start gap-5 md:gap-15 items-center fixed">
         <div className="h-15 cursor-not-allowed">
           <div>
-            <img className="w-29" src={portfolio} alt="" />
+            <img onClick={scrollToHome} className="w-29" src={portfolio} alt="" />
           </div>
         </div>
-        <h4 onMouseEnter={handleEnter} onMouseLeave={handleLeave} className="font-bold font-poppins  uppercase text-xs whitespace-nowrap md:text-xl hover:translate-x-1 headerLink">About Me</h4>
-        <h4 onMouseEnter={handleEnter} onMouseLeave={handleLeave} className="font-bold font-poppins  uppercase text-xs whitespace-nowrap md:text-xl hover:translate-x-1 headerLink">Projects</h4>
-        <h4 onMouseEnter={handleEnter} onMouseLeave={handleLeave} className="font-bold font-poppins  uppercase text-xs whitespace-nowrap md:text-xl hover:translate-x-1 headerLink">Contact</h4>
+        <h4 onClick={scrollToAbout} onMouseEnter={handleEnter} onMouseLeave={handleLeave} className="font-bold font-poppins  uppercase text-xs whitespace-nowrap md:text-xl hover:translate-x-1 headerLink">About Me</h4>
+        <h4 onClick={scrollToProjects} onMouseEnter={handleEnter} onMouseLeave={handleLeave} className="font-bold font-poppins  uppercase text-xs whitespace-nowrap md:text-xl hover:translate-x-1 headerLink">Projects</h4>
+        <h4 onClick={scrollToContact} onMouseEnter={handleEnter} onMouseLeave={handleLeave} className="font-bold font-poppins  uppercase text-xs whitespace-nowrap md:text-xl hover:translate-x-1 headerLink">Contact</h4>
       </div>
     </>
   )
