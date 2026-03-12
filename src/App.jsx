@@ -7,6 +7,7 @@ import { FaGithub, FaLinkedin, FaWhatsapp } from "react-icons/fa";
 import { IoLogoVercel } from "react-icons/io5";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import emailjs from '@emailjs/browser';
+import { Toaster, toast } from 'sonner'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -226,11 +227,11 @@ function App() {
 
   const sendEmail = (e) => {
     e.preventDefault();
-    console.log(e);
+    // console.log(e);
 
     if (!form.current.from_name.value || !form.current.user_email.value || !form.current.phone.value || !form.current.message.value) {
 
-      alert("Fill the Form Completly")
+     toast.error('Fill the form completly')
     } else {
       emailjs
         .sendForm('service_7zqvkrn', 'template_j7gcidc', form.current, {
@@ -238,7 +239,7 @@ function App() {
         })
         .then(
           () => {
-            alert("Email Send")
+            toast.success("Email Send")
             form.current.reset()
           },
           (error) => {
@@ -265,6 +266,7 @@ function App() {
           <div className="mt-5">
             <h1 ref={headingref} className="text-2xl font-light opacity-0 translate-y-39 uppercase">Fronted Developer</h1>
           </div>
+          <Toaster/>
           <div ref={container} className="flex gap-5 opacity-100 text-4xl mt-5">
             <a className="icon" href="https://www.linkedin.com/in/rishi-sankar-r-430a4a362/" target="_blank" rel="noopener noreferrer"> <FaLinkedin /></a>
             <a className="icon" href="https://github.com/Rishi2057?tab=repositories" target="_blank" rel="noopener noreferrer"> <FaGithub /></a>
