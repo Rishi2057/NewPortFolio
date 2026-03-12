@@ -2,9 +2,11 @@ import { useEffect, useRef } from "react";
 import Header from "./Header"
 import bg from "./assets/Gemini_Generated_Image_817ehy817ehy817e.png"
 import { gsap } from "gsap";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { useGSAP } from "@gsap/react";
+import { FaGithub, FaLinkedin, FaWhatsapp } from "react-icons/fa";
 import { IoLogoVercel } from "react-icons/io5";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import emailjs from '@emailjs/browser';
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -17,7 +19,7 @@ function App() {
   const headingref = useRef(null)
   const maindivRef = useRef(null)
 
-  useEffect(() => {
+  useGSAP(() => {
     const mm = gsap.matchMedia();
 
     // small screens
@@ -73,66 +75,25 @@ function App() {
   useEffect(() => {
     const handleMove = (dets) => {
       if (pointer.current) {
-        pointer.current.style.left = dets.clientX  + "px";
-        pointer.current.style.top = dets.clientY+10 + "px";
-        pointer.current.classList.remove("hidden");
+        pointer.current.style.left = dets.clientX + "px"
+        pointer.current.style.top = dets.clientY + 10 + "px"
+        pointer.current.classList.remove("hidden")
       }
-    };
-
-    const page2Enter = () => {
-      if (pointer.current) {
-        pointer.current.classList.replace("h-3", "h-52");
-        pointer.current.classList.replace("w-3", "w-52");
-
-        pointer.current.classList.add(
-          "bg-yellow-200/30",
-          "blur-md",
-          "shadow-[0_0_40px_10px_rgba(250,204,21,0.4)]"
-        );
-      }
-    };
-
-    const page2Leave = () => {
-      if (pointer.current) {
-        pointer.current.classList.replace("h-52", "h-3");
-        pointer.current.classList.replace("w-52", "w-3");
-
-        pointer.current.classList.remove(
-          "bg-yellow-200/30",
-          "blur-md",
-          "shadow-[0_0_40px_10px_rgba(250,204,21,0.4)]"
-        );
-      }
-    };
-    const page2El = page2.current;
-
-    document.addEventListener("mousemove", handleMove);
-
-    if (page2El) {
-      page2El.addEventListener("mouseenter", page2Enter);
-      page2El.addEventListener("mouseleave", page2Leave);
     }
 
-    return () => {
-      document.removeEventListener("mousemove", handleMove);
-
-      if (page2El) {
-        page2El.removeEventListener("mouseenter", page2Enter);
-        page2El.removeEventListener("mouseleave", page2Leave);
-      }
-    };
 
 
+    document.addEventListener("mousemove", handleMove)
 
   }, []);
 
-  const page3 = useRef(null);
-  const svgRef = useRef(null);
+  const page3 = useRef(null)
+  const svgRef = useRef(null)
 
 
   useEffect(() => {
 
-    const pathLength = svgRef.current.getTotalLength();
+    const pathLength = svgRef.current.getTotalLength()
 
     svgRef.current.style.strokeDasharray = pathLength;
     svgRef.current.style.strokeDashoffset = pathLength;
@@ -151,23 +112,141 @@ function App() {
         end: "bottom bottom",
         // markers: true
       }
-    });
+    })
 
-  }, []);
+  }, [])
 
   const backgroundRef = useRef(null)
-  console.log(backgroundRef);
 
-  document.addEventListener("mousemove",(e)=>{
-    // console.log(dets.clientX);
-   const xMove = (e.clientX / window.innerWidth - 0.5) * 30;
+  useEffect(() => {
+
+    const handleMove = (e) => {
+      const xMove = (e.clientX / window.innerWidth - 0.5) * 30;
       gsap.to(backgroundRef.current, {
         x: `${xMove * 0.2}%`,
-        ease:"linear",
+        ease: "linear",
       });
-    
-  })
-  
+    }
+    document.addEventListener("mousemove", handleMove)
+
+
+    return () => {
+      document.removeEventListener("mousemove", handleMove)
+    }
+
+  }, [])
+
+  const page2Enter = () => {
+    pointer.current.classList.add("-translate-y-20")
+    pointer.current.classList.add("-translate-x-10")
+    pointer.current.classList.replace("h-3", "h-52")
+    pointer.current.classList.replace("w-3", "w-52")
+    pointer.current.classList.add(
+      "bg-yellow-200/30",
+      "blur-md",
+      "shadow-[0_0_40px_10px_rgba(250,204,21,0.4)]"
+    )
+
+  }
+
+  const page2Leave = () => {
+    pointer.current.classList.remove("-translate-y-20")
+    pointer.current.classList.remove("-translate-x-10")
+    pointer.current.classList.replace("h-52", "h-3")
+    pointer.current.classList.replace("w-52", "w-3")
+    pointer.current.classList.remove(
+      "bg-yellow-200/30",
+      "blur-md",
+      "shadow-[0_0_40px_10px_rgba(250,204,21,0.4)]"
+    )
+  }
+
+   const page4Enter = () => {
+    pointer.current.classList.add("bg-yellow-500")
+
+  }
+
+  const page4Leave = () => {
+
+    pointer.current.classList.remove("bg-yellow-500",)
+  }
+
+
+
+  const page4 = useRef(null)
+  const contacthead = useRef(null)
+  const contactIcons = useRef(null)
+
+
+
+  useGSAP(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: page4.current,
+        scrub: 3,
+        // markers: true,
+        start: "-30% 80%",
+        end: "-20% 60%",
+      }
+    })
+    tl.from(page4.current, {
+      x: 1495,
+      y: 450,
+      duration: 3,
+      width: "100px",
+      borderRadius: "150%",
+       ease: "power2.inOut"
+    })
+    tl.from(contacthead.current, {
+      opacity: 0,
+      y: 10,
+       ease: "power2.inOut"
+    })
+    tl.from(contactIcons.current.children, {
+      y:-35,
+      opacity:0,
+      stagger: 0.5,
+      duration: 2,
+      ease: "power2.inOut"
+    })
+  }, [])
+
+
+
+  // contact email
+
+  const form = useRef();
+  const messegeRef = useRef(null)
+  const nameRef = useRef(null)
+  const emailRef = useRef(null)
+  const phoneref = useRef(null)
+
+
+
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+    console.log(e);
+
+    if (!form.current.from_name.value || !form.current.user_email.value || !form.current.phone.value || !form.current.message.value) {
+
+      alert("Fill the Form Completly")
+    } else {
+      emailjs
+        .sendForm('service_7zqvkrn', 'template_j7gcidc', form.current, {
+          publicKey: 'S9wa21gcdHg18UVhO',
+        })
+        .then(
+          () => {
+            alert("Email Send")
+            form.current.reset()
+          },
+          (error) => {
+            console.log('FAILED...', error.text);
+          },
+        );
+    }
+  };
 
 
 
@@ -175,7 +254,7 @@ function App() {
     <>
       <Header pointer={pointer} />
       <img ref={backgroundRef} id="backgroundimg" src={bg} alt="" />
-      <div ref={maindivRef} id="main" className="relative">
+      <div ref={maindivRef} id="main" className="relative overflow-hidden">
         <div ref={pointer} id="pointer" className="h-3 w-3 rounded-full hidden z-10 bg-white fixed"></div>
         <div id="page1" className="h-screen w-full text-white flex flex-col justify-center items-center">
 
@@ -192,7 +271,7 @@ function App() {
             <a className="icon" href="https://vercel.com/rishi2057s-projects" target="_blank" rel="noopener noreferrer"> <IoLogoVercel /></a>
           </div>
         </div>
-        <div ref={page2} id="page2" className=" h-[70vh] w-full text-white">
+        <div ref={page2} onMouseEnter={page2Enter} onMouseLeave={page2Leave} id="page2" className=" h-[70vh] w-full text-white">
           <h1 id="abouth1" className="uppercase font-extrabold text-5xl md:text-8xl text-center">About ME</h1>
           <p id="parapage2" className="px-10 md:px-55 mt-5 md:mt-10 text-justify">
             I am a passionate Frontend Developer who has completed a MEARN Stack Development course at Luminar Technolab. I specialize in building responsive, interactive, and user-friendly web interfaces using technologies such as HTML, CSS, JavaScript, and React.
@@ -223,21 +302,21 @@ function App() {
                 <img className=" md:w-110" src="https://portfolio-react-sand-seven.vercel.app/assets/restuarant-BchGQAgi.png" alt="" />
                 <div>
                   <p>Spice Veda is a simple and fully responsive static restaurant website created with pure HTML and CSS. It showcases the restaurant’s menu, special dishes, and brand story through a clean and minimal layout. Designed for smooth browsing and fast loading, it works on all screen sizes without using JavaScript or frameworks.</p>
-                   <button id="btn-click">Click Here</button>
+                  <button id="btn-click">Click Here</button>
                 </div>
               </div>
               <div className="md:flex gap-5">
                 <img className="md:w-110" src="https://portfolio-react2-iota.vercel.app/assets/travel-CwQM8Tr5.png" alt="" />
                 <div>
                   <p>Luxura Travels is a fully static website built using HTML, CSS, and Tailwind CSS. It highlights luxury travel destinations, exclusive packages, and easy-to-browse sections that give users a smooth and elegant viewing experience. Designed for speed and simplicity, it works perfectly across devices without requiring any backend or database.</p>
-                   <button id="btn-click">Click Here</button>
+                  <button id="btn-click">Click Here</button>
                 </div>
               </div>
               <div className="md:flex gap-5">
                 <img className="md:w-110" src="https://portfolio-react2-iota.vercel.app/assets/course-D1UX8NI3.png" alt="" />
                 <div>
                   <p>Built a frontend clone of the Udemy platform focusing on course listings, category pages, and responsive UI components. The project uses React.js for a modular, component-based architecture and Tailwind CSS for fast, modern, and consistent styling. Reusable components and optimized layouts improve performance and maintain a clean, uniform user experience across devices</p>
-                   <button id="btn-click">Click Here</button>
+                  <button id="btn-click">Click Here</button>
                 </div>
               </div>
               <div className="md:flex gap-5">
@@ -250,7 +329,7 @@ function App() {
 
             </div>
           </div>
-          <div className="absolute top-0 left-0 w-full h-full z-1">
+          <div className=" absolute top-0 left-0 w-full h-full z-1">
             <svg width="100%" height="100%" viewBox="0 0 1394 1024" fill="none">
               <path
                 id="svgg"
@@ -264,8 +343,48 @@ function App() {
             </svg>
           </div>
         </div>
-        <div className="h-screen text-white">
-          <a className="" target="_blank" href="https://wa.me/+918848062876">contact</a>
+        <div ref={page4} onMouseEnter={page4Enter} onMouseLeave={page4Leave} id="page4" className=" h-screen w-full bg-white  text-white">
+          <div className="flex justify-center pt-25">
+            <h1 ref={contacthead} id="contacth1" className="uppercase font-extrabold text-5xl md:text-8xl text-center">
+              Contact
+            </h1>
+          </div>
+          <div className="grid md:grid-cols-2 w-100 md:w-full md:px-15">
+
+            {/* left */}
+            <div ref={contacthead} className=' text-black pt-10'>
+              <div></div>
+              <form ref={form} onSubmit={sendEmail} className='space-y-10'>
+                <div className='px-10'>
+                  <input ref={nameRef} type="text" name="from_name" className='border-l-2 outline-0 border-b-2 w-full py-2 px-3' placeholder='ENTER YOUR NAME*' />
+                </div>
+                <div className='px-10'>
+                  <input ref={emailRef} type="text" name="user_email" className='border-l-2 outline-0 border-b-2 w-full py-2 px-3' placeholder='ENTER YOUR EMAIL*' />
+                </div>
+                <div className='px-10'>
+                  <input ref={phoneref} type="text" name="phone" className='border-l-2 outline-0 border-b-2 w-full py-2 px-3' placeholder='PHONE NUMBER*' />
+                </div>
+                <div className='px-10'>
+                  <textarea ref={messegeRef} name="message" className='border-l-2 outline-0 border-b-2 w-full pb-8 px-3' placeholder='YOUR MESSEGE*' id=""></textarea>
+                </div>
+                <div className='flex justify-center'>
+                  <button type='submit' className='border-l-2 border-r-2 outline-0 px-8 cursor-pointer py-1 font-medium'>
+                    SUBMIT
+                  </button>
+                </div>
+              </form>
+              <div></div>
+            </div>
+            {/* right */}
+            <div ref={contactIcons} className="flex mt-20 md:mt-0 justify-center items-center text-4xl md:text-7xl gap-5 text-black ">
+              <a className="icon" href="https://www.linkedin.com/in/rishi-sankar-r-430a4a362/" target="_blank" rel="noopener noreferrer"> <FaLinkedin /></a>
+              <a className="icon" href="https://github.com/Rishi2057?tab=repositories" target="_blank" rel="noopener noreferrer"> <FaGithub /></a>
+              <a className="icon" href="https://vercel.com/rishi2057s-projects" target="_blank" rel="noopener noreferrer"> <IoLogoVercel /></a>
+              <a className="icon" href="https://wa.me/918848062876" target="_blank" rel="noopener noreferrer"><FaWhatsapp /></a>
+
+            </div>
+
+          </div>
         </div>
       </div>
     </>

@@ -99,7 +99,7 @@
 }
 
 #banner h1:hover {
-  color: yellow;
+  color: #ffff00;
 }
 
 @keyframes scroller {
@@ -204,4 +204,23 @@
 
 #btn-click:hover {
   color: #000;
+}
+
+
+
+#contacth1 {
+  position: relative;
+  color: yellow;
+  -webkit-text-stroke: 1px black;
+  width: fit-content;
+}
+
+#contacth1::before {
+  content: "contact";
+  position: absolute;
+  color: white;
+  top: 3px;
+    -webkit-text-stroke: 1px black;
+  /* background-color: white; */
+
 }

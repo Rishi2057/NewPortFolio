@@ -14,7 +14,6 @@ function Header({ pointer }) {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: headerRef.current,
-        // markers: true,
         scrub: true,
         start: "top top",
         end: "top -40%"
@@ -31,24 +30,27 @@ function Header({ pointer }) {
   }, [])
 
   const handleEnter = () => {
-    pointer.current.classList.replace("h-3", "h-10");
-    pointer.current.classList.replace("w-3", "w-10");
-    pointer.current.classList.replace("bg-white", "bg-transparent");
+    pointer.current.classList.add("-translate-y-7")
+    pointer.current.classList.add("-translate-x-3")
+    pointer.current.classList.replace("h-3", "h-10")
+    pointer.current.classList.replace("w-3", "w-10")
+    pointer.current.classList.replace("bg-white", "bg-transparent")
     pointer.current.classList.add(
       "border-yellow-500",
-      
       "border-5",
-    );
+    )
   }
 
   const handleLeave = () => {
-    pointer.current.classList.replace("h-10", "h-3");
-    pointer.current.classList.replace("bg-transparent", "bg-white");
-    pointer.current.classList.replace("w-10", "w-3");
+    pointer.current.classList.remove("-translate-y-7")
+    pointer.current.classList.remove("-translate-x-3")
+    pointer.current.classList.replace("h-10", "h-3")
+    pointer.current.classList.replace("bg-transparent", "bg-white")
+    pointer.current.classList.replace("w-10", "w-3")
     pointer.current.classList.remove(
       "border-yellow-500",
       "border-5",
-    );
+    )
   }
 
   return (
@@ -59,9 +61,9 @@ function Header({ pointer }) {
             <img className="w-29" src={portfolio} alt="" />
           </div>
         </div>
-        <h4 onMouseEnter={handleEnter} onMouseLeave={handleLeave} className="font-bold font-poppins  uppercase text-sm md:text-xl hover:translate-x-1 headerLink">About Me</h4>
-        <h4 onMouseEnter={handleEnter} onMouseLeave={handleLeave} className="font-bold font-poppins  uppercase text-sm md:text-xl hover:translate-x-1 headerLink">Projects</h4>
-        <h4 onMouseEnter={handleEnter} onMouseLeave={handleLeave} className="font-bold font-poppins  uppercase text-sm md:text-xl hover:translate-x-1 headerLink">Contact</h4>
+        <h4 onMouseEnter={handleEnter} onMouseLeave={handleLeave} className="font-bold font-poppins  uppercase text-xs whitespace-nowrap md:text-xl hover:translate-x-1 headerLink">About Me</h4>
+        <h4 onMouseEnter={handleEnter} onMouseLeave={handleLeave} className="font-bold font-poppins  uppercase text-xs whitespace-nowrap md:text-xl hover:translate-x-1 headerLink">Projects</h4>
+        <h4 onMouseEnter={handleEnter} onMouseLeave={handleLeave} className="font-bold font-poppins  uppercase text-xs whitespace-nowrap md:text-xl hover:translate-x-1 headerLink">Contact</h4>
       </div>
     </>
   )
