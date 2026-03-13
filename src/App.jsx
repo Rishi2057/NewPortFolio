@@ -18,6 +18,7 @@ function App() {
 
   const container = useRef(null)
   const headingref = useRef(null)
+  const headingref2 = useRef(null)
   const maindivRef = useRef(null)
 
   useGSAP(() => {
@@ -46,6 +47,13 @@ function App() {
       y: -7,
       opacity: 1
     })
+    gsap.from(headingref2.current.children, {
+      y: 40,
+      opacity: 0,
+      duration: 0.1,
+      stagger: 0.1,
+      ease: "power3.out"
+    });
     gsap.to(maindivRef.current, {
       backgroundColor: "#000",
       scrollTrigger: {
@@ -141,8 +149,7 @@ function App() {
   const page2Enter = () => {
     pointer.current.classList.add("-translate-y-20")
     pointer.current.classList.add("-translate-x-10")
-    pointer.current.classList.replace("h-3", "h-52")
-    pointer.current.classList.replace("w-3", "w-52")
+    pointer.current.classList.add("scale-[10]")
     pointer.current.classList.add(
       "bg-yellow-200/30",
       "blur-md",
@@ -154,8 +161,7 @@ function App() {
   const page2Leave = () => {
     pointer.current.classList.remove("-translate-y-20")
     pointer.current.classList.remove("-translate-x-10")
-    pointer.current.classList.replace("h-52", "h-3")
-    pointer.current.classList.replace("w-52", "w-3")
+    pointer.current.classList.remove("scale-[10]")
     pointer.current.classList.remove(
       "bg-yellow-200/30",
       "blur-md",
@@ -186,9 +192,9 @@ function App() {
       scrollTrigger: {
         trigger: page4.current,
         scrub: 3,
-        // markers: true,
-        start: "-30% 80%",
-        end: "-20% 60%",
+        markers: true,
+        start: "-20% 60%",
+        end: "-20% 30%",
       }
     })
     tl.from(page4.current, {
@@ -251,7 +257,7 @@ function App() {
   }
 
 
-    const scrollToHome = () => {
+  const scrollToHome = () => {
     page1.current?.scrollIntoView({
       behavior: "smooth"
     })
@@ -269,9 +275,9 @@ function App() {
     })
   }
 
-  const scrollToContact = ()=>{
+  const scrollToContact = () => {
     page4.current.scrollIntoView({
-      behavior:"smooth"
+      behavior: "smooth"
     })
   }
 
@@ -296,6 +302,23 @@ function App() {
             <a className="icon" href="https://www.linkedin.com/in/rishi-sankar-r-430a4a362/" target="_blank" rel="noopener noreferrer"> <FaLinkedin /></a>
             <a className="icon" href="https://github.com/Rishi2057?tab=repositories" target="_blank" rel="noopener noreferrer"> <FaGithub /></a>
             <a className="icon" href="https://vercel.com/rishi2057s-projects" target="_blank" rel="noopener noreferrer"> <IoLogoVercel /></a>
+          </div>
+          <div className="flex justify-center pt-5">
+            <a href="/React.pdf" download>
+              <h1 ref={headingref2} className="flex">
+                <span>D</span>
+                <span>o</span>
+                <span>w</span>
+                <span>n</span>
+                <span>l</span>
+                <span>o</span>
+                <span>a</span>
+                <span>d</span>
+                <span className="">&nbsp;</span>
+                <span>C</span>
+                <span>V</span>
+              </h1>
+            </a>
           </div>
         </div>
         <div ref={page2} onMouseEnter={page2Enter} onMouseLeave={page2Leave} id="page2" className=" h-[70vh] w-full text-white scroll-mt-25">
