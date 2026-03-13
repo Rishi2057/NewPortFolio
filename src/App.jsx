@@ -193,7 +193,7 @@ function App() {
         trigger: page4.current,
         scrub: 3,
         start: "-20% 70%",
-        end: "-20% 30%",
+        end: "-20% 40%",
       }
     })
     tl.from(page4.current, {
