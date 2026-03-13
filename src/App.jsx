@@ -206,6 +206,7 @@ function App() {
     })
     tl.from(contacthead.current, {
       opacity: 0,
+      duration:2,
       y: 10,
       ease: "power2.inOut"
     })
