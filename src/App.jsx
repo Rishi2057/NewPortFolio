@@ -192,7 +192,6 @@ function App() {
       scrollTrigger: {
         trigger: page4.current,
         scrub: 3,
-        markers: true,
         start: "-20% 60%",
         end: "-20% 30%",
       }
