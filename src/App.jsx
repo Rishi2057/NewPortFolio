@@ -8,22 +8,12 @@ import { IoLogoVercel } from "react-icons/io5";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import emailjs from '@emailjs/browser';
 import { Toaster, toast } from 'sonner'
-import Lenis from 'lenis'
+
 
 gsap.registerPlugin(ScrollTrigger)
 
 
 function App() {
-
-  // Initialize Lenis
-  const lenis = new Lenis({
-    autoRaf: true,
-  });
-
-  // Listen for the scroll event and log the event data
-  lenis.on('scroll', (e) => {
-    console.log(e);
-  });
 
   const imgref = useRef(null)
   console.log(imgref);
