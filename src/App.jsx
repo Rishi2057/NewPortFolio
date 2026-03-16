@@ -8,11 +8,23 @@ import { IoLogoVercel } from "react-icons/io5";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import emailjs from '@emailjs/browser';
 import { Toaster, toast } from 'sonner'
+import Lenis from 'lenis'
 
 gsap.registerPlugin(ScrollTrigger)
 
 
 function App() {
+
+  // Initialize Lenis
+  const lenis = new Lenis({
+    autoRaf: true,
+  });
+
+  // Listen for the scroll event and log the event data
+  lenis.on('scroll', (e) => {
+    console.log(e);
+  });
+
   const imgref = useRef(null)
   console.log(imgref);
 
@@ -182,6 +194,7 @@ function App() {
 
 
   const page4 = useRef(null)
+  const contactheading = useRef(null)
   const contacthead = useRef(null)
   const contactIcons = useRef(null)
 
@@ -197,12 +210,15 @@ function App() {
       }
     })
     tl.from(page4.current, {
-      x: 1495,
+      x: 350,
       y: 450,
       duration: 3,
-      width: "100px",
+      width: "800px",
       borderRadius: "150%",
       ease: "power2.inOut"
+    })
+    tl.from(contactheading.current, {
+      opacity: 0
     })
     tl.from(contacthead.current, {
       opacity: 0,
@@ -394,7 +410,7 @@ function App() {
         </div>
         <div ref={page4} onMouseEnter={page4Enter} onMouseLeave={page4Leave} id="page4" className=" h-screen w-full bg-white  text-white">
           <div className="flex justify-center pt-25">
-            <h1 ref={contacthead} id="contacth1" className="uppercase font-extrabold text-5xl md:text-8xl text-center">
+            <h1 ref={contactheading}  id="contacth1" className="uppercase font-extrabold text-5xl md:text-8xl text-center">
               Contact
             </h1>
           </div>
@@ -432,7 +448,6 @@ function App() {
               <a className="icon" href="https://wa.me/918848062876" target="_blank" rel="noopener noreferrer"><FaWhatsapp /></a>
 
             </div>
-
           </div>
         </div>
       </div>
