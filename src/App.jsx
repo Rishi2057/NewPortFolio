@@ -300,7 +300,7 @@ function App() {
             <h1>RISHI SANKAR</h1>
           </div>
           <div className="mt-5">
-            <h1 ref={headingref} className="text-2xl font-light opacity-0 translate-y-39 uppercase">Fronted Developer</h1>
+            <h1 ref={headingref} className="text-2xl font-light opacity-0 translate-y-39 uppercase">Frontend Developer</h1>
           </div>
           <Toaster />
           <div ref={container} className="flex gap-5 opacity-100 text-4xl mt-5">
